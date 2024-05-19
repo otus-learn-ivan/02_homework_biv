@@ -3,21 +3,21 @@ cmake_minimum_required(VERSION 3.10)
 set(PATCH_VERSION "2" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.1.${PATCH_VERSION})
 
-project(ip_filter VERSION ${PROJECT_VESRION})
+project(ip_filter_prg VERSION ${PROJECT_VESRION})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.h.in version.h)
 
 add_executable(ip_filter main.cpp)
-add_library(ip_filter_lib lib.cpp)
-add_executable(test_ip_filter test_version.cpp)
+add_library(ip_filter_prg lib.cpp)
+add_executable(test_ip_filter test_ip_filter.cpp)
 
-set_target_properties(ip_filter ip_filter_lib test_ip_filter PROPERTIES
-    CXX_STANDARD 17
+set_target_properties(ip_filter ip_filter_prg test_ip_filter PROPERTIES
+    CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
-target_include_directories(ip_filter
+target_include_directories(ip_filter_prg
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 set_target_properties(test_ip_filter PROPERTIES
@@ -26,18 +26,18 @@ set_target_properties(test_ip_filter PROPERTIES
 )
 
 target_link_libraries(ip_filter PRIVATE
-ip_filter_lib
+    ip_filter_prg
 )
 target_link_libraries(test_ip_filter
     ${Boost_LIBRARIES}
-    ip_filter_lib
+    ip_filter_prg
 )
 
 if (MSVC)
     target_compile_options(ip_filter PRIVATE
         /W4
     )
-    target_compile_options(ip_filter_lib PRIVATE
+    target_compile_options(ip_filter_prg PRIVATE
         /W4
     )
     target_compile_options(test_ip_filter PRIVATE
@@ -47,7 +47,7 @@ else ()
     target_compile_options(ip_filter PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(ip_filter_lib PRIVATE
+    target_compile_options(ip_filter_prg PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
     target_compile_options(test_ip_filter PRIVATE
