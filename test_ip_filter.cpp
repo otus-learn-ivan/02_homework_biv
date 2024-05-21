@@ -21,11 +21,11 @@ BOOST_AUTO_TEST_CASE(test_test)
   BOOST_CHECK(true == true);
 }
 
-//  BOOST_AUTO_TEST_CASE(test_valid_version)
-//  {
-//    std::cout <<"test_valid_version" << std::endl;
-//     BOOST_CHECK(version() != 100);
-//  }
+BOOST_AUTO_TEST_CASE(test_valid_version)
+{
+  std::cout <<"test_valid_version" << std::endl;
+  BOOST_CHECK(version() != 100);
+}
 //  BOOST_AUTO_TEST_CASE(ip_filter_md5sum)
 //  {
 //     system("cat ip_filter.tsv | ./ip_filter | md5sum > 1.txt");
