@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 
 set(PATCH_VERSION "2" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.1.${PATCH_VERSION})
@@ -24,13 +24,16 @@ set_target_properties(test_ip_filter PROPERTIES
     COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
-
 target_link_libraries(ip_filter PRIVATE
     ip_filter_prg
 )
 target_link_libraries(test_ip_filter
     ${Boost_LIBRARIES}
     ip_filter_prg
+)
+configure_file(
+  "ip_filter.tsv"
+  "${CMAKE_CURRENT_BINARY_DIR}/" COPYONLY
 )
 
 if (MSVC)
